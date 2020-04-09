@@ -422,9 +422,17 @@ devtools::install_github(&quot;MyKo101/typos&quot;)</code></pre>
 <div id="other-packages" class="section level2">
 <h2>Other packages</h2>
 <p>As well as the correctly spelled function, the <code>.typo()</code> function can take a <code>.package</code> argument (this will <em>always</em> be the second unnamed argument, so code can be neater). By default, this will be the <code>base</code> package, but <em>any</em> other package will need to be specified (this includes default packages like <code>stats</code>).</p>
-<pre class="r"><code>#Rnorm &lt;- .typo(rnorm,stats)</code></pre>
+<pre class="r"><code>Rnorm &lt;- .typo(rnorm,stats)</code></pre>
 <p>Within the wrapper function, this changes two things. The argument passed to <code>requireNamespace()</code> will match this package, as will the “proper” function call</p>
-<pre class="r"><code>#Rnorm</code></pre>
+<pre class="r"><code>Rnorm
+#&gt; function(...)
+#&gt; {
+#&gt;  requireNamespace(&quot;stats&quot;,quietly=T)
+#&gt;  .call &lt;- deparse(sys.call())
+#&gt;  .typo_alert(&quot;rnorm&quot;,.call)
+#&gt;  stats::rnorm(...)
+#&gt; }
+#&gt; &lt;environment: 0x0000020f4ff74c38&gt;</code></pre>
 </div>
 <div id="warning" class="section level2">
 <h2>Warning</h2>

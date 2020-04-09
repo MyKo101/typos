@@ -66,13 +66,13 @@ Notice that all the arguments passed to `nameS(...)` are forwarded on to `names(
 As well as the correctly spelled function, the `.typo()` function can take a `.package` argument (this will *always* be the second unnamed argument, so code can be neater). By default, this will be the `base` package, but *any* other package will need to be specified (this includes default packages like `stats`).
 
 ```{r}
-#Rnorm <- .typo(rnorm,stats)
+Rnorm <- .typo(rnorm,stats)
 ```
 
 Within the wrapper function, this changes two things. The argument passed to `requireNamespace()` will match this package, as will the "proper" function call
 
 ```{r Wrapper-Rnorm}
-#Rnorm
+Rnorm
 ```
 
 

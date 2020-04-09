@@ -29,7 +29,7 @@ produced.
 
 ``` r
 nameS(iris)
-#> Warning: Typo Detected: nameS instead of names
+#> Warning: Typo of "names()" detected in "nameS(iris)"
 #> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
 ```
 
@@ -56,11 +56,13 @@ The wrapper function, `nameS` looks like this:
 nameS
 #> function (...) 
 #> {
-#>     warning("Typo Detected: nameS instead of names", call. = F)
-#>     names(...)
+#>     requireNamespace("base", quietly = T)
+#>     .call <- deparse(sys.call())
+#>     .typo_alert("names", .call)
+#>     base::names(...)
 #> }
-#> <bytecode: 0x0000000015a5b5f8>
-#> <environment: namespace:typos>
+#> <bytecode: 0x0000000015a5ace8>
+#> <environment: 0x0000000015a58e38>
 ```
 
 Notice that all the arguments passed to `nameS(...)` are forwarded on to
@@ -75,7 +77,7 @@ package, but *any* other package will need to be specified (this
 includes default packages like `stats`).
 
 ``` r
-#Rnorm <- .typo(rnorm,stats)
+Rnorm <- .typo(rnorm,stats)
 ```
 
 Within the wrapper function, this changes two things. The argument
@@ -83,7 +85,15 @@ passed to `requireNamespace()` will match this package, as will the
 “proper” function call
 
 ``` r
-#Rnorm
+Rnorm
+#> function (...) 
+#> {
+#>     requireNamespace("stats", quietly = T)
+#>     .call <- deparse(sys.call())
+#>     .typo_alert("rnorm", .call)
+#>     stats::rnorm(...)
+#> }
+#> <environment: 0x00000000137a61e0>
 ```
 
 ## Warning
