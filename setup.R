@@ -4,6 +4,9 @@ library(roxygen2)
 
 .clear_exported()
 
+source("R/utils.R")
+source("R/typo-functions.R")
+
 .typo_doc(nameS,names)
 .typo_doc(`nameS<-`,`names<-`,back.tick=T)
 .typo_doc(typoef,typeof)

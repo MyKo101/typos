@@ -4,13 +4,14 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+source("R/typo-functions.R")
 ```
 
 # typos <img src="logo.png" align="right" height=139 />
@@ -24,75 +25,70 @@ The goal of `typos` is to provide a flexible warning when commonly mis-typed fun
 
 You can install the development version of `typos` from [GitHub](https://github.com/) with:
 
-``` r
+```
 # install.packages("devtools")
 devtools::install_github("MyKo101/typos")
 ```
 ## Example
 
-For example, without `typos` installed, the following will throw an error due to the misspelling of `names` as `nameS`:
+For example, without `typos` installed, the following will throw an error due to the misspelling of `names` as `nameS`.
 
-```{r error-example, error=T}
+```{r,error=T}
 nameS(iris)
 ```
 
-But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced
-```{r nameS-typo, echo=F}
+```{r include=F}
+source("R/Exported-typos.R")
+```
+
+But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced.
+```{r nameS-typo}
 library(typos)
 nameS(iris)
 ```
 
-## Wrapping
-
-All functions declared in `typos` are just wrapper functions around the "proper" function. These wrapper functions also output a warning to let users know that they have made a mistake. The warning includes the call to make it easier for users to fix.
-
 ## Generating typos
 
-The key to `typos` is the `.typo()` function which generates the wrapper function. It also comes with a list of exported typos, which can be found [here]("man/Exported-typos.Rd"), by using the command `help("Exported-typos")` or applying the `?` operator to any other Exported typo (e.g. `?nameS`)
+The key to `typo` is the `.typo()` function. To generate a typo, we use the following syntax:
 
-To generate your own typo function, just use the following syntax:
 ```
-incorrect <- .typo(correct)
+<incorrect spelling> <- .typo(<correct spelling>)
 ```
 
-For example, the above used `nameS()` function is defined as:
+For example, the above `nameS` typo is generated with
 ```
 nameS <- .typo(names)
 ```
 
-For the `names()` function, we have a secondary assignment function (for when you want to change the names of an object), and so we need to define that separately (using back-ticks):
-```
-`nameS<-` <- .typo(`names<-`)
-```
+## Wrapping
 
-What if your function is in another package? Just use the `.package` argument to specify the package for the correct function
+The way `.typo()` works is to generate a wrapper function around the correctly spelled function. This wrapper function sends a warning to the user, but still evaluates the "proper" function.
 
-```
-fitler <- .typo(filter,dplyr)
-```
+The wrapper function, `nameS` looks like this:
 
-## Typo Alert
-
-It is also possible to specify your own typo alerting function. An typo alert function must take two arguments, the first will be the correct spelling of the function (as a string) and the second will be the call that has caused the typo to trigger (see `?.typo`). 
-
-This can then be done in one of two ways, firstly by specifying it when declaring a typo:
-
-```{r my-error}
-My_Error <- function(a,b) warning("Oh No! A Typo!")
-nms <- .typo(names,.typo_function=My_error)
-nms(iris)
-
+```{r Wrapper-nameS}
+nameS
 ```
 
-Secondly, by overwriting the built-in `.typo_alert()` function, this will also effect the built-in typos as they will then also call your function:
+Notice that all the arguments passed to `nameS(...)` are forwarded on to `names(...)`
 
-```{r overwrite-error}
-.typo_alert <- function(a,b) warning("Look at me. I am the typo alert now")
-nameS(iris)
+## Other packages
+
+As well as the correctly spelled function, the `.typo()` function can take a `.package` argument (this will *always* be the second unnamed argument, so code can be neater). By default, this will be the `base` package, but *any* other package will need to be specified (this includes default packages like `stats`).
+
+```{r}
+Rnorm <- .typo(rnorm,stats)
+```
+
+Within the wrapper function, this changes two things. The argument passed to `requireNamespace()` will match this package, as will the "proper" function call
+
+```{r Wrapper-Rnorm}
+Rnorm
 ```
 
 
+## Warning
 
-
-
+Caution should be used if the misspelled version of your function already exists as a function in it's own right. The `.typo()` will overwrite the other "correct" function with the new typo function. For this reason, it is recommended that `typos` be the first package loaded to ensure functions loaded in other packages can overwrite the Exported typos provided here.
+```
 
