@@ -4,7 +4,14 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # typos <img src="logo.png" align="right" height=139 />
 
@@ -25,18 +32,14 @@ devtools::install_github("MyKo101/typos")
 
 For example, without `typos` installed, the following will throw an error due to the misspelling of `names` as `nameS`:
 
-
-```r
+```{r error-example, error=T}
 nameS(iris)
-#> Warning in .typo_alert("names", .call): Look at me. I am the typo alert now
-#> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
 ```
 
 But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced
-
-```
-#> Warning in .typo_alert("names", .call): Look at me. I am the typo alert now
-#> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+```{r nameS-typo, echo=F}
+library(typos)
+nameS(iris)
 ```
 
 ## Wrapping
@@ -74,23 +77,18 @@ It is also possible to specify your own typo alerting function. An typo alert fu
 
 This can then be done in one of two ways, firstly by specifying it when declaring a typo:
 
-
-```r
+```{r my-error}
 My_Error <- function(a,b) warning("Oh No! A Typo!")
 nms <- .typo(names,.typo_function=My_error)
 nms(iris)
-#> Warning: OH NO! A TYPO!
-#> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+
 ```
 
 Secondly, by overwriting the built-in `.typo_alert()` function, this will also effect the built-in typos as they will then also call your function:
 
-
-```r
+```{r overwrite-error}
 .typo_alert <- function(a,b) warning("Look at me. I am the typo alert now")
 nameS(iris)
-#> Warning in .typo_alert("names", .call): Look at me. I am the typo alert now
-#> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
 ```
 
 
