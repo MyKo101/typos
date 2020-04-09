@@ -16,9 +16,5 @@ source("R/typo-functions.R")
 .typo_doc(fitler,filter,dplyr)
 
 
-#sort documentation
+#Update documentation
 devtools::document()
-rmarkdown::render("README.Rmd",
-                  output_format="html_document",
-                  output_file="index.html")
-

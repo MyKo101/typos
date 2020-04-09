@@ -8,16 +8,9 @@ output:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
 
- <img src="logo.png" align="right" height=139 />
+
+# typos <img src="logo.png" align="right" height=139 />
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -35,15 +28,28 @@ devtools::install_github("MyKo101/typos")
 ## Example
 
 For example, without `typos` installed, mistyping the functions `names()` as `nameS()` will throw an error.
-```{r nameS-error, error=T}
+
+```r
 nameS(iris)
+#> Error in nameS(iris): could not find function "nameS"
 ```
 
 
 But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced.
-```{r nameS-typo}
+
+```r
 library(typos)
+#> 
+#> Attaching package: 'typos'
+#> The following objects are masked _by_ '.GlobalEnv':
+#> 
+#>     .clear_exported, .typo, .typo_alert, .typo_doc, fitler, geom_warp, nameS<-, typoef
+#> The following objects are masked from 'package:base':
+#> 
+#>     library.dynam.unload, system.file
 nameS(iris)
+#> Warning: Typo of "names()" detected in "nameS(iris)"
+#> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
 ```
 
 ## Generating typos
@@ -65,8 +71,17 @@ The way `.typo()` works is to generate a wrapper function around the correctly s
 
 The wrapper function, `nameS` looks like this:
 
-```{r Wrapper-nameS}
+
+```r
 nameS
+#> function(...)
+#> {
+#> 	requireNamespace("base",quietly=T)
+#> 	.call <- deparse(sys.call())
+#> 	.typo_alert("names",.call)
+#> 	base::names(...)
+#> }
+#> <environment: 0x0000020f52283388>
 ```
 
 Notice that all the arguments passed to `nameS(...)` are forwarded on to `names(...)`
@@ -75,14 +90,24 @@ Notice that all the arguments passed to `nameS(...)` are forwarded on to `names(
 
 As well as the correctly spelled function, the `.typo()` function can take a `.package` argument (this will *always* be the second unnamed argument, so code can be neater). By default, this will be the `base` package, but *any* other package will need to be specified (this includes default packages like `stats`).
 
-```{r}
+
+```r
 Rnorm <- .typo(rnorm,stats)
 ```
 
 Within the wrapper function, this changes two things. The argument passed to `requireNamespace()` will match this package, as will the "proper" function call
 
-```{r Wrapper-Rnorm}
+
+```r
 Rnorm
+#> function(...)
+#> {
+#> 	requireNamespace("stats",quietly=T)
+#> 	.call <- deparse(sys.call())
+#> 	.typo_alert("rnorm",.call)
+#> 	stats::rnorm(...)
+#> }
+#> <environment: 0x0000020f56e97ef8>
 ```
 
 
