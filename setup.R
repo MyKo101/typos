@@ -17,7 +17,8 @@ source("R/typo-functions.R")
 
 #sort documentation
 devtools::document()
-knitr::knit("README.Rmd")
+knitr::knit("README.Rmd",
+            out="README.md")
 rmarkdown::render("README.Rmd",
                   output_format="html_document",
                   output_file="index.html")

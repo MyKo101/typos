@@ -1,8 +1,3 @@
----
-title: typos
-output: github_document
----
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
@@ -72,7 +67,7 @@ nameS
 #> 	.typo_alert("names",.call)
 #> 	base::names(...)
 #> }
-#> <environment: 0x0000020f5093d168>
+#> <environment: 0x0000020f51ad9ec8>
 ```
 
 Notice that all the arguments passed to `nameS(...)` are forwarded on to `names(...)`
@@ -98,7 +93,7 @@ Rnorm
 #> 	.typo_alert("rnorm",.call)
 #> 	stats::rnorm(...)
 #> }
-#> <environment: 0x0000020f56cc76d0>
+#> <environment: 0x0000020f55e68070>
 ```
 
 
