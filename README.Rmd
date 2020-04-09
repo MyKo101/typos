@@ -1,3 +1,7 @@
+---
+output: github_document
+---
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
@@ -7,7 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-source("R/typo-functions.R")
+library(typos)
 ```
 
 # typos <img src="logo.png" align="right" height=139 />
@@ -27,16 +31,8 @@ devtools::install_github("MyKo101/typos")
 ```
 ## Example
 
-For example, without `typos` installed, the following will throw an error due to the misspelling of `names` as `nams`.
-
-```{r,error=T}
-nameS(iris)
-```
-
-
-But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced.
+For example, without `typos` installed, mistyping the functions `names()` as `nameS()` will throw an error. But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced.
 ```{r nameS-typo}
-library(typos)
 nameS(iris)
 ```
 
@@ -70,13 +66,13 @@ Notice that all the arguments passed to `nameS(...)` are forwarded on to `names(
 As well as the correctly spelled function, the `.typo()` function can take a `.package` argument (this will *always* be the second unnamed argument, so code can be neater). By default, this will be the `base` package, but *any* other package will need to be specified (this includes default packages like `stats`).
 
 ```{r}
-Rnorm <- .typo(rnorm,stats)
+#Rnorm <- .typo(rnorm,stats)
 ```
 
 Within the wrapper function, this changes two things. The argument passed to `requireNamespace()` will match this package, as will the "proper" function call
 
 ```{r Wrapper-Rnorm}
-Rnorm
+#Rnorm
 ```
 
 

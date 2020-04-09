@@ -15,10 +15,9 @@ source("R/typo-functions.R")
 .typo_doc(geom_warp,geom_wrap,ggplot2)
 .typo_doc(fitler,filter,dplyr)
 
+
 #sort documentation
 devtools::document()
-knitr::knit("README.Rmd",
-            out="README.md")
 rmarkdown::render("README.Rmd",
                   output_format="html_document",
                   output_file="index.html")

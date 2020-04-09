@@ -16,3 +16,5 @@ Suggests:
 Collate:
   "typo-functions.R"
   "Exported-typos.R"
+  "typos.R"
+  "utils.R"

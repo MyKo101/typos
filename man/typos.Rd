@@ -11,4 +11,8 @@ A package designed to help users beat common typos
 This package is mostly powered by the \code{\link[=.typo]{.typo()}} function
 which provides a flexible and easy to use method
 of declaring common typing errors.
+
+As well as the ability to define typos, this package
+also comes with several common built in typos, such as
+\code{\link[=nameS]{nameS()}} and \code{\link[=fitler]{fitler()}}
 }
