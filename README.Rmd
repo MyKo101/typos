@@ -1,4 +1,5 @@
 ---
+title: typos
 output: github_document
 ---
 
@@ -31,15 +32,12 @@ devtools::install_github("MyKo101/typos")
 ```
 ## Example
 
-For example, without `typos` installed, the following will throw an error due to the misspelling of `names` as `nameS`.
+For example, without `typos` installed, the following will throw an error due to the misspelling of `names` as `nams`.
 
 ```{r,error=T}
 nameS(iris)
 ```
 
-```{r include=F}
-source("R/Exported-typos.R")
-```
 
 But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced.
 ```{r nameS-typo}
@@ -90,5 +88,5 @@ Rnorm
 ## Warning
 
 Caution should be used if the misspelled version of your function already exists as a function in it's own right. The `.typo()` will overwrite the other "correct" function with the new typo function. For this reason, it is recommended that `typos` be the first package loaded to ensure functions loaded in other packages can overwrite the Exported typos provided here.
-```
+
 

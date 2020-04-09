@@ -13,4 +13,6 @@ Roxygen: list(markdown = TRUE)
 Import: rlang
 Suggests: 
     testthat
-
+Collate:
+  "typo-functions.R"
+  "Exported-typos.R"

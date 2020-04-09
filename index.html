@@ -11,7 +11,7 @@
 
 
 
-<title>README.utf8</title>
+<title>typos</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -374,6 +374,7 @@ summary {
 
 
 
+<h1 class="title toc-ignore">typos</h1>
 
 </div>
 
@@ -392,7 +393,7 @@ devtools::install_github(&quot;MyKo101/typos&quot;)</code></pre>
 </div>
 <div id="example" class="section level2">
 <h2>Example</h2>
-<p>For example, without <code>typos</code> installed, the following will throw an error due to the misspelling of <code>names</code> as <code>nameS</code>.</p>
+<p>For example, without <code>typos</code> installed, the following will throw an error due to the misspelling of <code>names</code> as <code>nams</code>.</p>
 <pre class="r"><code>nameS(iris)
 #&gt; Warning: Typo of &quot;names()&quot; detected in &quot;nameS(iris)&quot;
 #&gt; [1] &quot;Sepal.Length&quot; &quot;Sepal.Width&quot;  &quot;Petal.Length&quot; &quot;Petal.Width&quot;  &quot;Species&quot;</code></pre>
@@ -421,7 +422,7 @@ nameS(iris)
 #&gt;  .typo_alert(&quot;names&quot;,.call)
 #&gt;  base::names(...)
 #&gt; }
-#&gt; &lt;environment: 0x0000020f4f310038&gt;</code></pre>
+#&gt; &lt;environment: 0x0000020f5093d168&gt;</code></pre>
 <p>Notice that all the arguments passed to <code>nameS(...)</code> are forwarded on to <code>names(...)</code></p>
 </div>
 <div id="other-packages" class="section level2">
@@ -437,11 +438,11 @@ nameS(iris)
 #&gt;  .typo_alert(&quot;rnorm&quot;,.call)
 #&gt;  stats::rnorm(...)
 #&gt; }
-#&gt; &lt;environment: 0x0000020f4abc6bb0&gt;</code></pre>
+#&gt; &lt;environment: 0x0000020f553e5208&gt;</code></pre>
 </div>
 <div id="warning" class="section level2">
 <h2>Warning</h2>
-<p>Caution should be used if the misspelled version of your function already exists as a function in it’s own right. The <code>.typo()</code> will overwrite the other “correct” function with the new typo function. For this reason, it is recommended that <code>typos</code> be the first package loaded to ensure functions loaded in other packages can overwrite the Exported typos provided here. ```</p>
+<p>Caution should be used if the misspelled version of your function already exists as a function in it’s own right. The <code>.typo()</code> will overwrite the other “correct” function with the new typo function. For this reason, it is recommended that <code>typos</code> be the first package loaded to ensure functions loaded in other packages can overwrite the Exported typos provided here.</p>
 </div>
 </div>
 
