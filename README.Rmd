@@ -11,7 +11,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-library(typos)
 ```
 
 # typos <img src="logo.png" align="right" height=139 />
@@ -31,8 +30,15 @@ devtools::install_github("MyKo101/typos")
 ```
 ## Example
 
-For example, without `typos` installed, mistyping the functions `names()` as `nameS()` will throw an error. But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced.
+For example, without `typos` installed, mistyping the functions `names()` as `nameS()` will throw an error.
+```{r nameS-error, error=T}
+nameS(iris)
+```
+
+
+But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced.
 ```{r nameS-typo}
+library(typos)
 nameS(iris)
 ```
 

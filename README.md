@@ -23,11 +23,18 @@ You can install the development version of `typos` from
 ## Example
 
 For example, without `typos` installed, mistyping the functions
-`names()` as `nameS()` will throw an error. But, with `typos`, the
-function is still evaluated, and rather than an Error, a Warning is
-produced.
+`names()` as `nameS()` will throw an error.
 
 ``` r
+nameS(iris)
+#> Error in nameS(iris): could not find function "nameS"
+```
+
+But, with `typos`, the function is still evaluated, and rather than an
+Error, a Warning is produced.
+
+``` r
+library(typos)
 nameS(iris)
 #> Warning: Typo of "names()" detected in "nameS(iris)"
 #> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
@@ -61,8 +68,8 @@ nameS
 #>     .typo_alert("names", .call)
 #>     base::names(...)
 #> }
-#> <bytecode: 0x0000000015a5ace8>
-#> <environment: 0x0000000015a58e38>
+#> <bytecode: 0x000000001338eff8>
+#> <environment: 0x00000000133945d0>
 ```
 
 Notice that all the arguments passed to `nameS(...)` are forwarded on to
@@ -93,7 +100,7 @@ Rnorm
 #>     .typo_alert("rnorm", .call)
 #>     stats::rnorm(...)
 #> }
-#> <environment: 0x00000000137a61e0>
+#> <environment: 0x0000000015a76a38>
 ```
 
 ## Warning

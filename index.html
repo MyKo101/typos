@@ -387,14 +387,19 @@ summary {
 <p>The goal of <code>typos</code> is to provide a flexible warning when commonly mis-typed functions are called. Functions with typing errors will still be evaluated and a warning will be output. It also provides the user with a convenient function to define their own typos.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<p>You can install the development version of <code>typos</code> from <a href="https://github.com/">GitHub</a> with:</p>
+<p>You can install the development version of <code>typos</code> from <a href="https://github.com/MyKo101/typos">Github.com/MyKo101/typos</a> with:</p>
 <pre><code># install.packages(&quot;devtools&quot;)
 devtools::install_github(&quot;MyKo101/typos&quot;)</code></pre>
 </div>
 <div id="example" class="section level2">
 <h2>Example</h2>
-<p>For example, without <code>typos</code> installed, mistyping the functions <code>names()</code> as <code>nameS()</code> will throw an error. But, with <code>typos</code>, the function is still evaluated, and rather than an Error, a Warning is produced.</p>
+<p>For example, without <code>typos</code> installed, mistyping the functions <code>names()</code> as <code>nameS()</code> will throw an error.</p>
 <pre class="r"><code>nameS(iris)
+#&gt; Warning: Typo of &quot;names()&quot; detected in &quot;nameS(iris)&quot;
+#&gt; [1] &quot;Sepal.Length&quot; &quot;Sepal.Width&quot;  &quot;Petal.Length&quot; &quot;Petal.Width&quot;  &quot;Species&quot;</code></pre>
+<p>But, with <code>typos</code>, the function is still evaluated, and rather than an Error, a Warning is produced.</p>
+<pre class="r"><code>library(typos)
+nameS(iris)
 #&gt; Warning: Typo of &quot;names()&quot; detected in &quot;nameS(iris)&quot;
 #&gt; [1] &quot;Sepal.Length&quot; &quot;Sepal.Width&quot;  &quot;Petal.Length&quot; &quot;Petal.Width&quot;  &quot;Species&quot;</code></pre>
 </div>
@@ -433,7 +438,7 @@ devtools::install_github(&quot;MyKo101/typos&quot;)</code></pre>
 #&gt;  .typo_alert(&quot;rnorm&quot;,.call)
 #&gt;  stats::rnorm(...)
 #&gt; }
-#&gt; &lt;environment: 0x0000020f4f0a8ff0&gt;</code></pre>
+#&gt; &lt;environment: 0x0000020f57ce68e8&gt;</code></pre>
 </div>
 <div id="warning" class="section level2">
 <h2>Warning</h2>
