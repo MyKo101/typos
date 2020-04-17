@@ -1,7 +1,7 @@
 Package: typos
 Type: Package
 Title: Generate and use typo functions
-Version: 0.1.0
+Version: 0.1.0.9001
 Authors@R: person("Michael A", "Barrowman", email="myko101ab@gmail.com",role=c("aut","cre"))
 Maintainer: Michael A Barrowman <myko101ab@gmail.com>
 Description: A package designed to help users beat common typos

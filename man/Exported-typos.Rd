@@ -5,6 +5,8 @@
 \alias{typoef}
 \alias{geom_warp}
 \alias{fitler}
+\alias{transmutate}
+\alias{lenght}
 \title{List of currently exported typos}
 \description{
 List of currently exported typos
@@ -17,6 +19,8 @@ Exported typos:
 \item \code{typoef <- .typo(typeof)}
 \item \code{geom_warp <- .typo(geom_wrap,ggplot2)}
 \item \code{fitler <- .typo(filter,dplyr)}
+\item \code{transmutate <- .typo(mutate,dplyr)}
+\item \code{lenght <- .typo(length)}
 }
 }
 

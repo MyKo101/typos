@@ -14,3 +14,9 @@ geom_warp <- .typo(geom_wrap,ggplot2)
 #' @export
 fitler <- .typo(filter,dplyr)
 
+#' @export
+transmutate <- .typo(mutate,dplyr)
+
+#' @export
+lenght <- .typo(length)
+
