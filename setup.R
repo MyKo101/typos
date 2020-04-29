@@ -18,5 +18,6 @@ source("R/typo-functions.R")
 .typo_doc(lenght,length)
 
 
-#Update documentation
+#Update documentation/website
 devtools::document()
+pkgdown::build_site()
