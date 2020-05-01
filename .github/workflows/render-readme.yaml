@@ -13,7 +13,7 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install current package
-        run: R CMD INSTALL
+        run: R CMD INSTALL .
       - name: Run Setup File
         run: Rscript "setup.R"
       - name: Commit results
