@@ -22,8 +22,6 @@ jobs:
         run: Rscript -e 'install.packages("pkgdown")'
       - name: Install rmarkdown
         run: Rscript -e 'install.packages("rmarkdown")'
-      - name: Load util functions
-        run: Rscript 'R/utils.R'
       - name: Run Setup File
         run: Rscript 'MakeTypos.R'
       - name: Rewrite documentation
