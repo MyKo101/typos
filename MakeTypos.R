@@ -1,7 +1,3 @@
-install.packages("devtools")
-install.packages("pkgdown")
-install.packages("rmarkdown")
-
 
 #Create the exported typos
 .clear_exported()
@@ -15,8 +11,3 @@ install.packages("rmarkdown")
 .typo_doc(transmutate,mutate,dplyr)
 .typo_doc(lenght,length)
 
-
-#Update documentation/website
-devtools::document()
-rmarkdown::render("README.Rmd")
-pkgdown::build_site()

@@ -2,11 +2,11 @@ on:
   push:
     branches: master
 
-name: Render README
+name: Auto-render package
 
 jobs:
   render:
-    name: Render README
+    name: Auto-render package
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,12 +14,24 @@ jobs:
         with:
           r-version: '3.6.3'
       - uses: r-lib/actions/setup-pandoc@v1
-      - name: Intall rlang
-        run: RScript -e 'install.packages("rlang")'
-      - name: Install typos (current) package
-        run: R CMD INSTALL .
+      - name: Install rlang
+        run: Rscript -e 'install.packages("rlang")'
+      - name: Install devtools
+        run: Rscript -e 'install.packages("devtools")'
+      - name: Install pkgdown
+        run: Rscript -e 'install.packages("pkgdown")'
+      - name: Install rmarkdown
+        run: Rscript -e 'install.packages("rmarkdown")'
+      - name: Load util functions
+        run: Rscript 'R/utils.R'
       - name: Run Setup File
-        run: Rscript "setup.R"
+        run: Rscript 'MakeTypos.R'
+      - name: Rewrite documentation
+        run: Rscript -e 'devtools::document()'
+      - name: Render README
+        run: Rscript -e 'rmarkdown::render("README.Rmd")'
+      - name: Build Site
+        run: Rscript -e 'pkgdown::build_site()'
       - name: Commit results
         run: |
           git commit README.md -m 'Auto-Rendered Package' || echo "No changes to commit"
