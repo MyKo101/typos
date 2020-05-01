@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![R build
+status](https://github.com/MyKo101/typos/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/typos/actions)
 <!-- badges: end -->
 
 The goal of `typos` is to provide a flexible warning when commonly
@@ -68,8 +70,8 @@ nameS
 #>     .typo_alert("names", .call)
 #>     base::names(...)
 #> }
-#> <bytecode: 0x000000001338eff8>
-#> <environment: 0x00000000133945d0>
+#> <bytecode: 0x7ffed2512730>
+#> <environment: 0x7ffed2517580>
 ```
 
 Notice that all the arguments passed to `nameS(...)` are forwarded on to
@@ -100,7 +102,7 @@ Rnorm
 #>     .typo_alert("rnorm", .call)
 #>     stats::rnorm(...)
 #> }
-#> <environment: 0x0000000015a76a38>
+#> <environment: 0x7ffed38b5e88>
 ```
 
 ## Warning
