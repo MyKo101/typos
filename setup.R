@@ -1,14 +1,12 @@
-library(rlang)
-library(devtools)
-library(roxygen2)
+install.packages("devtools")
+install.packages("pkgdown")
+install.packages("rmarkdown")
 
-# Load the functions
-source("R/utils.R")
-source("R/typo-functions.R")
 
 #Create the exported typos
 .clear_exported()
 
+#Add in the current list of typos
 .typo_doc(nameS,names)
 .typo_doc(`nameS<-`,`names<-`,back.tick=T)
 .typo_doc(typoef,typeof)
@@ -20,4 +18,5 @@ source("R/typo-functions.R")
 
 #Update documentation/website
 devtools::document()
+rmarkdown::render("README.Rmd")
 pkgdown::build_site()

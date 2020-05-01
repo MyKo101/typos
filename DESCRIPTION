@@ -18,3 +18,5 @@ Collate:
   "Exported-typos.R"
   "typos.R"
   "utils.R"
+Imports: 
+    rlang
