@@ -14,7 +14,9 @@ jobs:
         with:
           r-version: '3.6.3'
       - uses: r-lib/actions/setup-pandoc@v1
-      - name: Install current package
+      - name: Intall rlang
+        run: RScript -e 'install.packages("rlang")'
+      - name: Install typos (current) package
         run: R CMD INSTALL .
       - name: Run Setup File
         run: Rscript "setup.R"
