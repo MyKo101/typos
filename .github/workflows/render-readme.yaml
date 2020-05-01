@@ -22,6 +22,8 @@ jobs:
         run: Rscript -e 'install.packages("pkgdown")'
       - name: Install rmarkdown
         run: Rscript -e 'install.packages("rmarkdown")'
+      - name: Installing typos
+        run: R CMD INSTALL .
       - name: Run Setup File
         run: Rscript 'MakeTypos.R'
       - name: Rewrite documentation
