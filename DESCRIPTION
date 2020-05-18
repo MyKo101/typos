@@ -19,3 +19,9 @@ Suggests:
     roxygen2
 Imports: 
     rlang (>= 0.1.2)
+Collate:
+  "utils-tidy-eval.R"
+  "typo-functions.R"
+  "Exported-typos.R"
+  "typos.R"
+  "utils.R"
