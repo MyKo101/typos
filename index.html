@@ -76,10 +76,8 @@
   <div class="contents col-md-9">
 <div id="typos-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#typos-" class="anchor"></a>typos <img src="logo.png" align="right" height="139">
+<a href="#typos-" class="anchor"></a>typos <img src="reference/figures/logo.png" align="right" height="139">
 </h1></div>
-<!-- badges: start -->
-
 <p>The goal of <code>typos</code> is to provide a flexible warning when commonly mis-typed functions are called. Functions with typing errors will still be evaluated and a warning will be output. It also provides the user with a convenient function to define their own typos.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -93,7 +91,8 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>For example, without <code>typos</code> installed, mistyping the functions <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> as <code><a href="reference/Exported-typos.html">nameS()</a></code> will throw an error.</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="reference/Exported-typos.html">nameS</a></span>(<span class="no">iris</span>)
-<span class="co">#&gt; Error in nameS(iris): could not find function "nameS"</span></pre></div>
+<span class="co">#&gt; Warning: Typo of "names()" detected in "nameS(iris)"</span>
+<span class="co">#&gt; [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"</span></pre></div>
 <p>But, with <code>typos</code>, the function is still evaluated, and rather than an Error, a Warning is produced.</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">typos</span>)
 <span class="fu"><a href="reference/Exported-typos.html">nameS</a></span>(<span class="no">iris</span>)
@@ -114,15 +113,14 @@
 <p>The way <code><a href="reference/typo-functions.html">.typo()</a></code> works is to generate a wrapper function around the correctly spelled function. This wrapper function sends a warning to the user, but still evaluates the “proper” function.</p>
 <p>The wrapper function, <code>nameS</code> looks like this:</p>
 <div class="sourceCode" id="cb6"><pre class="r"><span class="no">nameS</span>
-<span class="co">#&gt; function (...) </span>
+<span class="co">#&gt; function(...)</span>
 <span class="co">#&gt; {</span>
-<span class="co">#&gt;     requireNamespace("base", quietly = T)</span>
-<span class="co">#&gt;     .call &lt;- deparse(sys.call())</span>
-<span class="co">#&gt;     .typo_alert("names", .call)</span>
-<span class="co">#&gt;     base::names(...)</span>
+<span class="co">#&gt;  requireNamespace("base",quietly=T)</span>
+<span class="co">#&gt;  .call &lt;- deparse(sys.call())</span>
+<span class="co">#&gt;  .typo_alert("names",.call)</span>
+<span class="co">#&gt;  base::names(...)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x000000001338d068&gt;</span>
-<span class="co">#&gt; &lt;environment: 0x00000000133927c8&gt;</span></pre></div>
+<span class="co">#&gt; &lt;environment: 0x000001fabacbd710&gt;</span></pre></div>
 <p>Notice that all the arguments passed to <code><a href="reference/Exported-typos.html">nameS(...)</a></code> are forwarded on to <code><a href="https://rdrr.io/r/base/names.html">names(...)</a></code></p>
 </div>
 <div id="other-packages" class="section level2">
@@ -132,14 +130,14 @@
 <div class="sourceCode" id="cb7"><pre class="r"><span class="no">Rnorm</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/typo-functions.html">.typo</a></span>(<span class="no">rnorm</span>,<span class="no">stats</span>)</pre></div>
 <p>Within the wrapper function, this changes two things. The argument passed to <code>requireNamespace()</code> will match this package, as will the “proper” function call</p>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="no">Rnorm</span>
-<span class="co">#&gt; function (...) </span>
+<span class="co">#&gt; function(...)</span>
 <span class="co">#&gt; {</span>
-<span class="co">#&gt;     requireNamespace("stats", quietly = T)</span>
-<span class="co">#&gt;     .call &lt;- deparse(sys.call())</span>
-<span class="co">#&gt;     .typo_alert("rnorm", .call)</span>
-<span class="co">#&gt;     stats::rnorm(...)</span>
+<span class="co">#&gt;  requireNamespace("stats",quietly=T)</span>
+<span class="co">#&gt;  .call &lt;- deparse(sys.call())</span>
+<span class="co">#&gt;  .typo_alert("rnorm",.call)</span>
+<span class="co">#&gt;  stats::rnorm(...)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;environment: 0x0000000015a7a508&gt;</span></pre></div>
+<span class="co">#&gt; &lt;environment: 0x000001fabe563d60&gt;</span></pre></div>
 </div>
 <div id="warning" class="section level2">
 <h2 class="hasAnchor">
@@ -183,13 +181,7 @@
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/MyKo101/typos/actions"><img src="https://github.com/MyKo101/typos/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-</ul>
-</div>
-</div>
+  </div>
 </div>
 
 
