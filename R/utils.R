@@ -22,6 +22,7 @@
   .incorrect_str <- rlang::as_name(rlang::enquo(.incorrect))
   .correct_str <- rlang::as_name(rlang::enquo(.correct))
   .package_str <- rlang::as_name(rlang::enquo(.package))
+  .package_str_raw <- .package_str
   if(.package_str == "base")
     .package_str <- "" else
       .package_str <- paste0(",",.package_str)
@@ -49,7 +50,7 @@
 
   .export_Rd <- append(.export_Rd,
                        .alias,
-                       after=tail(.alias.line,1))
+                       after=utils::tail(.alias.line,1))
   .export_Rd <- append(.export_Rd,
                        .item,
                        after=length(.export_Rd)-3)
@@ -62,6 +63,9 @@
                         .typo_code,
                         ""))
   writeLines(.export_R,"R/Exported-typos.R")
+
+  if(!.package_str_raw %in% c("rlang","base"))
+    usethis::use_package(.package_str_raw,"Suggests")
 
   return(c(.incorrect_str,.correct_str))
 }

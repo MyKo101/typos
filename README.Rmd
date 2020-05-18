@@ -13,11 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# typos <img src="logo.png" align="right" height=139 />
-
-<!-- badges: start -->
-[![R build status](https://github.com/MyKo101/typos/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/typos/actions)
-<!-- badges: end -->
+# typos <img src="man/figures/logo.png" align="right" height=139 />
 
 The goal of `typos` is to provide a flexible warning when commonly mis-typed functions are called. Functions with typing errors will still be evaluated and a warning will be output. It also provides the user with a convenient function to define their own typos.
 

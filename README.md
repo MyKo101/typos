@@ -1,13 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# typos <img src="logo.png" align="right" height=139 />
-
-<!-- badges: start -->
-
-[![R build
-status](https://github.com/MyKo101/typos/workflows/R-CMD-check/badge.svg)](https://github.com/MyKo101/typos/actions)
-<!-- badges: end -->
+# typos <img src="man/figures/logo.png" align="right" height=139 />
 
 The goal of `typos` is to provide a flexible warning when commonly
 mis-typed functions are called. Functions with typing errors will still
@@ -29,7 +23,8 @@ For example, without `typos` installed, mistyping the functions
 
 ``` r
 nameS(iris)
-#> Error in nameS(iris): could not find function "nameS"
+#> Warning: Typo of "names()" detected in "nameS(iris)"
+#> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
 ```
 
 But, with `typos`, the function is still evaluated, and rather than an
@@ -63,15 +58,14 @@ The wrapper function, `nameS` looks like this:
 
 ``` r
 nameS
-#> function (...) 
+#> function(...)
 #> {
-#>     requireNamespace("base", quietly = T)
-#>     .call <- deparse(sys.call())
-#>     .typo_alert("names", .call)
-#>     base::names(...)
+#>  requireNamespace("base",quietly=T)
+#>  .call <- deparse(sys.call())
+#>  .typo_alert("names",.call)
+#>  base::names(...)
 #> }
-#> <bytecode: 0x000000001338d068>
-#> <environment: 0x00000000133927c8>
+#> <environment: 0x000001fabacbd710>
 ```
 
 Notice that all the arguments passed to `nameS(...)` are forwarded on to
@@ -95,14 +89,14 @@ passed to `requireNamespace()` will match this package, as will the
 
 ``` r
 Rnorm
-#> function (...) 
+#> function(...)
 #> {
-#>     requireNamespace("stats", quietly = T)
-#>     .call <- deparse(sys.call())
-#>     .typo_alert("rnorm", .call)
-#>     stats::rnorm(...)
+#>  requireNamespace("stats",quietly=T)
+#>  .call <- deparse(sys.call())
+#>  .typo_alert("rnorm",.call)
+#>  stats::rnorm(...)
 #> }
-#> <environment: 0x0000000015a7a508>
+#> <environment: 0x000001fabe563d60>
 ```
 
 ## Warning
