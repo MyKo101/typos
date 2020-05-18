@@ -87,4 +87,8 @@ Rnorm
 
 Caution should be used if the misspelled version of your function already exists as a function in it's own right. The `.typo()` will overwrite the other "correct" function with the new typo function. For this reason, it is recommended that `typos` be the first package loaded to ensure functions loaded in other packages can overwrite the Exported typos provided here.
 
+## Code of Conduct
+
+Please note that the typos project is released with a [Contributor Code of Conduct](https://michaelbarrowman.co.uk/typos/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
 

@@ -70,8 +70,8 @@ nameS
 #>     .typo_alert("names", .call)
 #>     base::names(...)
 #> }
-#> <bytecode: 0x7ffed2512730>
-#> <environment: 0x7ffed2517580>
+#> <bytecode: 0x000000001338d068>
+#> <environment: 0x00000000133927c8>
 ```
 
 Notice that all the arguments passed to `nameS(...)` are forwarded on to
@@ -102,7 +102,7 @@ Rnorm
 #>     .typo_alert("rnorm", .call)
 #>     stats::rnorm(...)
 #> }
-#> <environment: 0x7ffed38b5e88>
+#> <environment: 0x0000000015a7a508>
 ```
 
 ## Warning
@@ -113,3 +113,9 @@ overwrite the other “correct” function with the new typo function. For
 this reason, it is recommended that `typos` be the first package loaded
 to ensure functions loaded in other packages can overwrite the Exported
 typos provided here.
+
+## Code of Conduct
+
+Please note that the typos project is released with a [Contributor Code
+of Conduct](https://michaelbarrowman.co.uk/typos/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
