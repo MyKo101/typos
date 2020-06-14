@@ -1,9 +1,9 @@
 {
-    "path" : "C:/Users/mbrxsmbc/Documents/R/My Packages/typos",
-    "sortOrder" : [
+    "path": "C:/Users/mbrxsmbc/Documents/R/My Packages/typos",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "columnIndex": 2,
+            "ascending": true
         }
     ]
 }

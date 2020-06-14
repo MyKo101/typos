@@ -29,14 +29,14 @@ devtools::install_github("MyKo101/typos")
 
 For example, without `typos` installed, mistyping the functions `names()` as `nameS()` will throw an error.
 ```{r nameS-error, error=T}
-nameS(iris)
+nameS(mtcars)
 ```
 
 
 But, with `typos`, the function is still evaluated, and rather than an Error, a Warning is produced.
 ```{r nameS-typo}
 library(typos)
-nameS(iris)
+nameS(mtcars)
 ```
 
 ## Generating typos

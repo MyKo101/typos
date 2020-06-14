@@ -22,9 +22,9 @@ For example, without `typos` installed, mistyping the functions
 `names()` as `nameS()` will throw an error.
 
 ``` r
-nameS(iris)
-#> Warning: Typo of "names()" detected in "nameS(iris)"
-#> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+nameS(mtcars)
+#> Warning: Typo of "names()" detected in "nameS()"
+#>  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"
 ```
 
 But, with `typos`, the function is still evaluated, and rather than an
@@ -32,9 +32,9 @@ Error, a Warning is produced.
 
 ``` r
 library(typos)
-nameS(iris)
-#> Warning: Typo of "names()" detected in "nameS(iris)"
-#> [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+nameS(mtcars)
+#> Warning: Typo of "names()" detected in "nameS()"
+#>  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"
 ```
 
 ## Generating typos
@@ -61,11 +61,13 @@ nameS
 #> function(...)
 #> {
 #>  requireNamespace("base",quietly=T)
-#>  .call <- deparse(sys.call())
-#>  .typo_alert("names",.call)
-#>  base::names(...)
+#>  .call <- match.call()
+#>  .incorrect_call <- as_name(.call[[1]])
+#>  .call[[1]] <- quote(names)
+#>  .typo_alert("names",.incorrect_call)
+#>  eval_tidy(.call,env=rlang::caller_env())
 #> }
-#> <environment: 0x000001fabacbd710>
+#> <environment: namespace:typos>
 ```
 
 Notice that all the arguments passed to `nameS(...)` are forwarded on to
@@ -92,11 +94,13 @@ Rnorm
 #> function(...)
 #> {
 #>  requireNamespace("stats",quietly=T)
-#>  .call <- deparse(sys.call())
-#>  .typo_alert("rnorm",.call)
-#>  stats::rnorm(...)
+#>  .call <- match.call()
+#>  .incorrect_call <- as_name(.call[[1]])
+#>  .call[[1]] <- quote(rnorm)
+#>  .typo_alert("rnorm",.incorrect_call)
+#>  eval_tidy(.call,env=rlang::caller_env())
 #> }
-#> <environment: 0x000001fabe563d60>
+#> <environment: 0x00000242b5f8fa40>
 ```
 
 ## Warning

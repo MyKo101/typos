@@ -34,6 +34,6 @@ the function \emph{is} evaluated and a Warning is thrown.
 \examples{
 nameS <- .typo(names)
 
-.typo_alert("names","nameS(iris)")
+.typo_alert("names","nameS(mtcars)")
 
 }

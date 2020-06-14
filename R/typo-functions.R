@@ -31,21 +31,25 @@
 #'
 .typo <- function(.correct,.package=base,.typo_function=.typo_alert)
 {
-  requireNamespace("rlang",quietly=T)
-  .pkg_str <- rlang::as_name(rlang::enquo(.package))
-  .correct_str <- rlang::as_name(rlang::enquo(.correct))
-  .alert_str <- rlang::as_name(rlang::enquo(.typo_function))
+  .pkg_str <- as_name(enquo(.package))
+  .correct_str <- as_name(enquo(.correct))
+  .alert_str <- as_name(enquo(.typo_function))
 
    .pkg_func <- paste0(.pkg_str,"::",.correct_str)
   .f <- paste0("function(...)\n",
     "{\n",
     "\trequireNamespace(\"",.pkg_str,"\",quietly=T)\n",
-    "\t.call <- deparse(sys.call())\n",
-    "\t",.alert_str,"(\"",.correct_str,"\",.call)\n",
-    "\t",.pkg_func,"(...)\n",
+    "\t.call <- match.call()\n",
+    "\t.incorrect_call <- as_name(.call[[1]])\n",
+    "\t.call[[1]] <- quote(",.correct_str,")\n",
+    "\t",.alert_str,"(\"",.correct_str,"\",.incorrect_call)\n",
+    "\teval_tidy(.call,env=rlang::caller_env())\n",
   "}",collapse="")
 
-  return(eval(parse(text=.f)))
+  res <- eval(parse(text=.f))
+  environment(res) <- rlang::caller_env()
+
+  return(res)
 }
 
 #' @rdname typo-functions
@@ -54,12 +58,12 @@
 #' The incorrectly spelled call made by the user
 #'
 #' @examples
-#' .typo_alert("names","nameS(iris)")
+#' .typo_alert("names","nameS(mtcars)")
 #'
 #' @export
 #'
 .typo_alert <- function(.correct,.call)
 {
-  .warn <- paste0("Typo of \"",.correct,"()\" detected in \"",.call,"\"")
+  .warn <- paste0("Typo of \"",.correct,"()\" detected in \"",.call,"()\"")
   warning(.warn,call.=F)
 }

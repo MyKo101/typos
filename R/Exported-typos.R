@@ -3,9 +3,6 @@
 nameS <- .typo(names)
 
 #' @export
-`nameS<-` <- .typo(`names<-`)
-
-#' @export
 typoef <- .typo(typeof)
 
 #' @export
