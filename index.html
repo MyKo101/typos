@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">typos</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9003</span>
       </span>
     </div>
 
@@ -90,14 +90,14 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>For example, without <code>typos</code> installed, mistyping the functions <code><a href="https://rdrr.io/r/base/names.html">names()</a></code> as <code><a href="reference/Exported-typos.html">nameS()</a></code> will throw an error.</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="reference/Exported-typos.html">nameS</a></span>(<span class="no">iris</span>)
-<span class="co">#&gt; Warning: Typo of "names()" detected in "nameS(iris)"</span>
-<span class="co">#&gt; [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="reference/Exported-typos.html">nameS</a></span>(<span class="no">mtcars</span>)
+<span class="co">#&gt; Warning: Typo of "names()" detected in "nameS()"</span>
+<span class="co">#&gt;  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"</span></pre></div>
 <p>But, with <code>typos</code>, the function is still evaluated, and rather than an Error, a Warning is produced.</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">typos</span>)
-<span class="fu"><a href="reference/Exported-typos.html">nameS</a></span>(<span class="no">iris</span>)
-<span class="co">#&gt; Warning: Typo of "names()" detected in "nameS(iris)"</span>
-<span class="co">#&gt; [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"</span></pre></div>
+<span class="fu"><a href="reference/Exported-typos.html">nameS</a></span>(<span class="no">mtcars</span>)
+<span class="co">#&gt; Warning: Typo of "names()" detected in "nameS()"</span>
+<span class="co">#&gt;  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"</span></pre></div>
 </div>
 <div id="generating-typos" class="section level2">
 <h2 class="hasAnchor">
@@ -116,11 +116,13 @@
 <span class="co">#&gt; function(...)</span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;  requireNamespace("base",quietly=T)</span>
-<span class="co">#&gt;  .call &lt;- deparse(sys.call())</span>
-<span class="co">#&gt;  .typo_alert("names",.call)</span>
-<span class="co">#&gt;  base::names(...)</span>
+<span class="co">#&gt;  .call &lt;- match.call()</span>
+<span class="co">#&gt;  .incorrect_call &lt;- as_name(.call[[1]])</span>
+<span class="co">#&gt;  .call[[1]] &lt;- quote(names)</span>
+<span class="co">#&gt;  .typo_alert("names",.incorrect_call)</span>
+<span class="co">#&gt;  eval_tidy(.call,env=rlang::caller_env())</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;environment: 0x000001fabacbd710&gt;</span></pre></div>
+<span class="co">#&gt; &lt;environment: namespace:typos&gt;</span></pre></div>
 <p>Notice that all the arguments passed to <code><a href="reference/Exported-typos.html">nameS(...)</a></code> are forwarded on to <code><a href="https://rdrr.io/r/base/names.html">names(...)</a></code></p>
 </div>
 <div id="other-packages" class="section level2">
@@ -133,11 +135,13 @@
 <span class="co">#&gt; function(...)</span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;  requireNamespace("stats",quietly=T)</span>
-<span class="co">#&gt;  .call &lt;- deparse(sys.call())</span>
-<span class="co">#&gt;  .typo_alert("rnorm",.call)</span>
-<span class="co">#&gt;  stats::rnorm(...)</span>
+<span class="co">#&gt;  .call &lt;- match.call()</span>
+<span class="co">#&gt;  .incorrect_call &lt;- as_name(.call[[1]])</span>
+<span class="co">#&gt;  .call[[1]] &lt;- quote(rnorm)</span>
+<span class="co">#&gt;  .typo_alert("rnorm",.incorrect_call)</span>
+<span class="co">#&gt;  eval_tidy(.call,env=rlang::caller_env())</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;environment: 0x000001fabe563d60&gt;</span></pre></div>
+<span class="co">#&gt; &lt;environment: 0x00000242b5f8fa40&gt;</span></pre></div>
 </div>
 <div id="warning" class="section level2">
 <h2 class="hasAnchor">
